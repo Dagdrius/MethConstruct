@@ -1,6 +1,7 @@
 import React from "react";
-import AuthPage from "./pages/auth-page/auth-page";
-import EducPage from "./pages/educ-page/educ-page";
+import AuthPage from "./pages/auth-page";
+import EducPage from "./pages/educ-page";
+import ConstructPage from "./pages/construct-page";
 import { NavBar } from "./components/navbar";
 import { Route, Routes } from "react-router-dom";
 
@@ -9,6 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<AuthPage />} />
       <Route path="/educ-plans" element={<EducPage />} />
+      <Route path="/constructor" element={<ConstructPage />} />
     </Routes>
   );
   // return (

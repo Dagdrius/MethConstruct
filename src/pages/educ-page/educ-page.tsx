@@ -18,6 +18,7 @@ type rowData = {
   id: number;
   programm: string;
   recYear: number;
+  educLvl: string;
   educDir: string;
 };
 
@@ -123,6 +124,18 @@ const EducPage: React.FC = () => {
                         Год набора
                       </TableSortLabel>
                     </TableCell>
+                    <TableCell key="educLvl">
+                      <TableSortLabel
+                        style={{ color: "white" }}
+                        active={orderBy === "educLvl"}
+                        direction={
+                          orderBy === "educLvl" ? orderDirection : "asc"
+                        }
+                        onClick={(event) => handleRequestSort(event, "educLvl")}
+                      >
+                        Уровень образования
+                      </TableSortLabel>
+                    </TableCell>
                     <TableCell key="educDir">
                       <TableSortLabel
                         style={{ color: "white" }}
@@ -146,6 +159,7 @@ const EducPage: React.FC = () => {
                     <TableRow key={index}>
                       <TableCell>{row.programm}</TableCell>
                       <TableCell>{row.recYear}</TableCell>
+                      <TableCell>{row.educLvl}</TableCell>
                       <TableCell>{row.educDir}</TableCell>
                     </TableRow>
                   ))}
