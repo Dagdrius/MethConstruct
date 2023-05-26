@@ -19,10 +19,6 @@ type inputsForm = {
   name: string;
   surName: string;
 };
-// interface AuthProps {
-//   isRegistered: boolean;
-// }
-
 const AuthPage: React.FC = () => {
   const navigate = useNavigate();
   const [isReg, setIsReg] = useState(true);

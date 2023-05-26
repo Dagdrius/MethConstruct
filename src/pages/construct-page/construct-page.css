@@ -1,15 +1,23 @@
-.educ-page{
-    display: flex;
-    justify-content: center;
-    align-items: right;
-    flex-direction: column;
-    padding: 20px;
-    
+.construct-page{
+    position: relative;
+    background: #ebebeb;
+    border: 1px solid black;
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: .5rem;
 }
-.dataTable{
-    padding: 20px;
+.construct-form{
+    padding: 1rem;
 }
-.planText{
-    margin-bottom: 16px !important;
+.stepClass{
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
 }
 
+.stepButton{
+    margin-top: 1rem;
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-end;
+}

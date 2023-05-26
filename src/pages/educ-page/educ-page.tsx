@@ -136,7 +136,7 @@ const EducPage: React.FC = () => {
                         Уровень образования
                       </TableSortLabel>
                     </TableCell>
-                    <TableCell key="educDir">
+                    {/* <TableCell key="educDir">
                       <TableSortLabel
                         style={{ color: "white" }}
                         active={orderBy === "educDir"}
@@ -147,7 +147,7 @@ const EducPage: React.FC = () => {
                       >
                         Направление
                       </TableSortLabel>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 </TableHead>
                 {sortedRowInformation(
@@ -160,7 +160,7 @@ const EducPage: React.FC = () => {
                       <TableCell>{row.programm}</TableCell>
                       <TableCell>{row.recYear}</TableCell>
                       <TableCell>{row.educLvl}</TableCell>
-                      <TableCell>{row.educDir}</TableCell>
+                      {/* <TableCell>{row.educDir}</TableCell> */}
                     </TableRow>
                   ))}
               </Table>
