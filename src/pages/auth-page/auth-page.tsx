@@ -29,7 +29,7 @@ const AuthPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<inputsForm> = (data) => {
     console.log(JSON.stringify(data));
-    navigate("/educ-plans", { replace: true });
+    navigate("/directions", { replace: true });
   };
   // const [inputs, setInputForm] = useState({
   //   login: "",

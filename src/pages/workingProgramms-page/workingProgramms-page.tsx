@@ -9,17 +9,17 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import { Box, TableSortLabel } from "@mui/material";
-import { mockRowData } from "./mockData";
+import { mockWorkRowData } from "./mockWorkData";
 // import educData from "./educData.json"
 
-import "./educ-page.css";
+import "./workingProgramms-page.css";
 
 type rowData = {
   id: number;
-  programm: string;
-  recYear: number;
+  code: string;
+  rpdName: string;
   educLvl: string;
-  educDir: string;
+  authors: string;
 };
 
 type Order = "asc" | "desc";
@@ -61,7 +61,7 @@ const sortedRowInformation = <T,>(
   return stabilizedRowArray.map((el) => el[0]);
 };
 
-const EducPage: React.FC = () => {
+const WorkingProgramms: React.FC = () => {
   const [orderDirection, setOrderDirection] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState("programm");
   const [page, setPage] = useState(0);
@@ -87,10 +87,10 @@ const EducPage: React.FC = () => {
   };
 
   return (
-    <div className="educ-page">
+    <div className="workingProgramms-page">
       <div className="padClass">
         <Typography className="planText" variant="h5">
-          Учебные планы
+          Рабочие программы дисциплин
         </Typography>
         <Box sx={{ width: "100%" }}>
           <Paper sx={{ width: "100%" }}>
@@ -98,30 +98,26 @@ const EducPage: React.FC = () => {
               <Table>
                 <TableHead style={{ backgroundColor: "#1D51A3" }}>
                   <TableRow>
-                    <TableCell key="programm">
+                    <TableCell key="code">
                       <TableSortLabel
                         style={{ color: "white" }}
-                        active={orderBy === "programm"}
-                        direction={
-                          orderBy === "programm" ? orderDirection : "asc"
-                        }
-                        onClick={(event) =>
-                          handleRequestSort(event, "programm")
-                        }
+                        active={orderBy === "code"}
+                        direction={orderBy === "code" ? orderDirection : "asc"}
+                        onClick={(event) => handleRequestSort(event, "code")}
                       >
-                        Программа
+                        Код
                       </TableSortLabel>
                     </TableCell>
-                    <TableCell key="recYear">
+                    <TableCell key="rpdName">
                       <TableSortLabel
                         style={{ color: "white" }}
-                        active={orderBy === "recYear"}
+                        active={orderBy === "rpdName"}
                         direction={
-                          orderBy === "recYear" ? orderDirection : "asc"
+                          orderBy === "rpdName" ? orderDirection : "asc"
                         }
-                        onClick={(event) => handleRequestSort(event, "recYear")}
+                        onClick={(event) => handleRequestSort(event, "rpdName")}
                       >
-                        Год набора
+                        Название
                       </TableSortLabel>
                     </TableCell>
                     <TableCell key="educLvl">
@@ -134,6 +130,18 @@ const EducPage: React.FC = () => {
                         onClick={(event) => handleRequestSort(event, "educLvl")}
                       >
                         Уровень образования
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell key="authors">
+                      <TableSortLabel
+                        style={{ color: "white" }}
+                        active={orderBy === "authors"}
+                        direction={
+                          orderBy === "authors" ? orderDirection : "asc"
+                        }
+                        onClick={(event) => handleRequestSort(event, "authors")}
+                      >
+                        Авторы
                       </TableSortLabel>
                     </TableCell>
                     {/* <TableCell key="educDir">
@@ -151,15 +159,16 @@ const EducPage: React.FC = () => {
                   </TableRow>
                 </TableHead>
                 {sortedRowInformation(
-                  mockRowData,
+                  mockWorkRowData,
                   getComparator(orderDirection, orderBy)
                 )
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow key={index}>
-                      <TableCell>{row.programm}</TableCell>
-                      <TableCell>{row.recYear}</TableCell>
+                      <TableCell>{row.code}</TableCell>
+                      <TableCell>{row.rpdName}</TableCell>
                       <TableCell>{row.educLvl}</TableCell>
+                      <TableCell>{row.authors}</TableCell>
                       {/* <TableCell>{row.educDir}</TableCell> */}
                     </TableRow>
                   ))}
@@ -169,7 +178,7 @@ const EducPage: React.FC = () => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={mockRowData.length}
+              count={mockWorkRowData.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
@@ -182,4 +191,4 @@ const EducPage: React.FC = () => {
   );
 };
 
-export default EducPage;
+export default WorkingProgramms;

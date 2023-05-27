@@ -1,28 +1,39 @@
 import React from "react";
 import AuthPage from "./pages/auth-page";
-import EducPage from "./pages/educ-page";
+import Directions from "./pages/directions-page/directions-page";
 import ConstructPage from "./pages/construct-page";
 import Navbar from "./components/Navbar";
-import { Route, Routes, Navigate } from "react-router-dom";
+import WorkingProgramms from "./pages/workingProgramms-page/workingProgramms-page";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<AuthPage />} />
-        <Route path="/educ-plans" element={<EducPage />} />
-        <Route path="/constructor" element={<ConstructPage />} />
+        <Route path="/*" element={<NavbarWithLocation />} />
       </Routes>
     </div>
   );
-  // return (
-  //   <div className="App">
-  //     {/* <AuthPage /> */}
-  //     {/* <RegForm /> */}
-  //   </div>
-  // );
 }
+
+const NavbarWithLocation: React.FC = () => {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
+  return (
+    <div>
+      <Navbar />
+      <div style={{ marginTop: isLoginPage ? 0 : "64px" }}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/directions" element={<Directions />} />
+          <Route path="/working-programms" element={<WorkingProgramms />} />
+          <Route path="/constructor" element={<ConstructPage />} />
+        </Routes>
+      </div>
+    </div>
+  );
+};
 
 export default App;
