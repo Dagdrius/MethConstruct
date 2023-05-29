@@ -1,10 +1,9 @@
 .construct-page{
     position: relative;
     background: #ebebeb;
-    border: 1px solid black;
     padding: 2rem;
-    margin: 1rem;
     border-radius: .5rem;
+    height: 100%;
 }
 .construct-form{
     padding: 1rem;

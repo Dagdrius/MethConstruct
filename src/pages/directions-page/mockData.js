@@ -205,7 +205,7 @@ export const mockRowData = [
   {
     id: 30,
     programm: "Теология",
-    code: "09.03.01",
+    code: "09.03.02",
     recYear: 2021,
     educLvl: "Магистратура",
   },

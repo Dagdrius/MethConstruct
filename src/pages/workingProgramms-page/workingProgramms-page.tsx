@@ -8,9 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import { Box, TableSortLabel } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Box, Button, IconButton, TableSortLabel } from "@mui/material";
 import { mockWorkRowData } from "./mockWorkData";
 // import educData from "./educData.json"
+import DialogMenu from "../../components/DialogMenu";
 
 import "./workingProgramms-page.css";
 
@@ -86,13 +88,27 @@ const WorkingProgramms: React.FC = () => {
     setPage(0);
   };
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleDialogSubmit = (values: Record<string, string>) => {
+    // Handle the form submission here
+    console.log("Form submitted:", values);
+  };
+
   return (
     <div className="workingProgramms-page">
       <div className="padClass">
         <Typography className="planText" variant="h5">
           Рабочие программы дисциплин
         </Typography>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
           <Paper sx={{ width: "100%" }}>
             <TableContainer>
               <Table>
@@ -144,18 +160,6 @@ const WorkingProgramms: React.FC = () => {
                         Авторы
                       </TableSortLabel>
                     </TableCell>
-                    {/* <TableCell key="educDir">
-                      <TableSortLabel
-                        style={{ color: "white" }}
-                        active={orderBy === "educDir"}
-                        direction={
-                          orderBy === "educDir" ? orderDirection : "asc"
-                        }
-                        onClick={(event) => handleRequestSort(event, "educDir")}
-                      >
-                        Направление
-                      </TableSortLabel>
-                    </TableCell> */}
                   </TableRow>
                 </TableHead>
                 {sortedRowInformation(
@@ -185,6 +189,29 @@ const WorkingProgramms: React.FC = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
+          <div style={{ position: "sticky", bottom: "20px", zIndex: 1 }}>
+            <IconButton
+              size="large"
+              sx={{ fontSize: "2rem", padding: "16px" }}
+              style={{
+                position: "relative",
+                float: "right",
+                marginRight: "20px",
+              }}
+              onClick={handleOpenDialog}
+            >
+              <AddCircleIcon
+                sx={{ fontSize: "2.5rem" }}
+                fontSize="large"
+                color="primary"
+              />
+            </IconButton>
+          </div>
+          <DialogMenu
+            open={isDialogOpen}
+            onClose={handleCloseDialog}
+            onSubmit={handleDialogSubmit}
+          />
         </Box>
       </div>
     </div>
