@@ -21,3 +21,8 @@ code {
   padding: 20px;
   width: 100%;
 }
+
+.inputTypo{
+  padding: 16px 0 4px 0 ;
+  font-size: 0.91rem !important;
+}

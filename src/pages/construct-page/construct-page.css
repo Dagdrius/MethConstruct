@@ -1,6 +1,14 @@
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    background: #ebebeb !important
+}
+
 .construct-page{
     position: relative;
-    background: #ebebeb;
+    background: #ebebeb; 
     padding: 2rem;
     border-radius: .5rem;
     height: 100%;

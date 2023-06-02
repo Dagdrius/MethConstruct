@@ -13,6 +13,7 @@ import { Box, Button, IconButton, TableSortLabel } from "@mui/material";
 import { mockWorkRowData } from "./mockWorkData";
 // import educData from "./educData.json"
 import DialogMenu from "../../components/DialogMenu";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./workingProgramms-page.css";
 
@@ -96,10 +97,14 @@ const WorkingProgramms: React.FC = () => {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
+  const [formValues, setFormValues] = useState<Record<string, string>>({});
+  const navigate = useNavigate();
 
   const handleDialogSubmit = (values: Record<string, string>) => {
     // Handle the form submission here
-    console.log("Form submitted:", values);
+    setFormValues(values); // Add this line to store the form values
+    setIsDialogOpen(false); // Close the dialog after form submission
+    navigate("/constructor", { state: { formValues: values } });
   };
 
   return (

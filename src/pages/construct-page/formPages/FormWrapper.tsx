@@ -15,12 +15,13 @@ export function FormWrapper({ title, children }: FormWrapperProps) {
         {title}
       </Typography>
       <div
-      // style={{
-      //   display: "grid",
-      //   gap: "1rem .5rem",
-      //   justifyContent: "flex-start",
-      //   gridTemplateColumns: "auto minmax(auto, 400px)",
-      // }}
+        // style={{
+        //   display: "grid",
+        //   gap: "1rem .5rem",
+        //   justifyContent: "flex-start",
+        //   gridTemplateColumns: "auto minmax(auto, 400px)",
+        // }}
+        style={{ width: "100%" }}
       >
         {children}
       </div>

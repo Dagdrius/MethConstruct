@@ -53,7 +53,7 @@ const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Создать новую рабочую программу</DialogTitle>
       <DialogContent>
-        <Typography variant="body2" sx={{ paddingTop: "16px" }}>
+        <Typography className="inputTypo" variant="body2">
           Название рабочей программы
         </Typography>
         <TextField
@@ -63,35 +63,33 @@ const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
           }
           fullWidth
         />
-        <Typography variant="body2" sx={{ paddingTop: "16px" }}>
+        <Typography className="inputTypo" variant="body2">
           Направление
         </Typography>
         <FormControl sx={{ width: "100%" }}>
-          <InputLabel id="direction-label">Направление</InputLabel>
           <Select
             fullWidth
-            labelId="direction-label"
             id="direction"
             value={textFieldValues.direction}
             onChange={(event) => handleSelectorChange(event)}
             name="direction"
             label="Направление"
           >
-            {mockRowData.map((row) => (
-              <MenuItem key={row.id} value={row.programm}>
-                {row.programm}
-              </MenuItem>
-            ))}
+            {Array.from(new Set(mockRowData.map((row) => row.programm))).map(
+              (programm) => (
+                <MenuItem key={programm} value={programm}>
+                  {programm}
+                </MenuItem>
+              )
+            )}
           </Select>
         </FormControl>
-        <Typography variant="body2" sx={{ paddingTop: "16px" }}>
+        <Typography variant="body2" className="inputTypo">
           Код направления
         </Typography>
         <FormControl sx={{ width: "100%" }}>
-          <InputLabel id="dirCode-label">Код направления</InputLabel>
           <Select
             fullWidth
-            labelId="dirCode-label"
             id="dirCode"
             value={textFieldValues.dirCode}
             onChange={(event) => handleSelectorChange(event)}
@@ -107,16 +105,12 @@ const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
               ))}
           </Select>
         </FormControl>
-        <Typography variant="body2" sx={{ paddingTop: "16px" }}>
+        <Typography variant="body2" className="inputTypo">
           Уровень образования
         </Typography>
         <FormControl sx={{ width: "100%" }}>
-          <InputLabel id="education-level-label">
-            Уровень образования
-          </InputLabel>
           <Select
             fullWidth
-            labelId="education-level-label"
             id="education-level"
             value={textFieldValues.educationLevel}
             onChange={(event) => handleSelectorChange(event)}
@@ -127,14 +121,12 @@ const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
             <MenuItem value="Бакалавриат">Бакалавриат</MenuItem>
           </Select>
         </FormControl>
-        <Typography variant="body2" sx={{ paddingTop: "16px" }}>
+        <Typography variant="body2" className="inputTypo">
           Форма обучения
         </Typography>
         <FormControl sx={{ width: "100%" }}>
-          <InputLabel id="education-form-label">Форма обучения</InputLabel>
           <Select
             fullWidth
-            labelId="education-form-label"
             id="education-form"
             value={textFieldValues.educationForm}
             onChange={(event) => handleSelectorChange(event)}
