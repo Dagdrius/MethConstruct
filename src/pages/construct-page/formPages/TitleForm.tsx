@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { TextField, Box } from "@mui/material";
 import { FormWrapper } from "./FormWrapper";
 
-type TitleData = {
+type TTitleData = {
   rpdName: string;
   direction: string;
   code: string;
@@ -12,8 +12,8 @@ type TitleData = {
   year: string;
 };
 
-type TitleFormProps = TitleData & {
-  updateFields: (fields: Partial<TitleData>) => void;
+type TTitleFormProps = TTitleData & {
+  updateFields: (fields: Partial<TTitleData>) => void;
 };
 
 export function TitleForm({
@@ -24,7 +24,7 @@ export function TitleForm({
   educForm,
   year,
   updateFields,
-}: TitleFormProps) {
+}: TTitleFormProps) {
   return (
     <>
       <FormWrapper title="Титульный лист">

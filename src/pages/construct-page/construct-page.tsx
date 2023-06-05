@@ -7,14 +7,21 @@ import Button from "@mui/material/Button";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import { v4 as uuidv4 } from "uuid";
 import { useLocation } from "react-router-dom";
 import { TitleForm } from "./formPages/TitleForm";
 import { AgreementForm } from "./formPages/AgreementForm";
 import { GoalsForm } from "./formPages/GoalsForm";
 import { OpopPlaceForm } from "./formPages/OpopPlaceForm";
 import { CompetencyForm } from "./formPages/CompetencyForm";
+import { DiscSizeForm } from "./formPages/DiscSizeForm";
+import { DiscContentForm } from "./formPages/DiscContentForm";
+import { EducMethSupportForm } from "./formPages/EducMethSupportForm";
+import { EvaluationFundForm } from "./formPages/EvaluationFundForm";
+import { ResourceSupportForm } from "./formPages/ResourceSupportForm";
 
 import "./construct-page.css";
+const uuid = () => Math.random().toString(36).slice(-6);
 
 type TCompetency = {
   id: string;
@@ -31,7 +38,23 @@ type TAchievementIndicator = {
   mastery?: string;
 };
 
-type FormData = {
+type TReqLogistics = {
+  lecture: string;
+  seminars: string;
+  disabled: string;
+};
+type TDiscContent = {
+  id: number;
+  discSection: string;
+  lectureHours?: string;
+  semHours?: string;
+  labHours?: string;
+  contactHours?: string;
+  selfHours?: string;
+};
+
+type TFormData = {
+  rpdId: string;
   rpdName: string;
   direction: string;
   code: string;
@@ -50,31 +73,64 @@ type FormData = {
   semester: string | number;
   course: string | number;
   competencies: TCompetency[];
+  hours: string;
+  creditUnits: string;
+  discSections: TDiscContent[];
+  supportList: string;
+  fundList: string;
+  literatureList: string;
+  periodicalsList: string;
+  internetResList: string;
+  infoTechResList: string | null;
+  profDataInfList: string;
+  reqSoftwareList: string;
+  TReqLogistics: TReqLogistics;
 };
 
 const ConstructPage: React.FC = () => {
   const location = useLocation();
   const formValues = location.state?.formValues || {};
 
-  const INITIAL_DATA: FormData = {
-    rpdName: formValues.name,
+  const INITIAL_DATA: TFormData = {
+    rpdId: uuid(),
+    rpdName: formValues.rpdName,
     direction: formValues.direction,
-    code: formValues.dirCode,
-    educLvl: formValues.educationLevel,
-    educForm: formValues.educationForm,
+    code: formValues.code,
+    educLvl: formValues.educLvl,
+    educForm: formValues.educForm,
     year: new Date().getFullYear().toString(),
-    protocol: "",
-    date: "",
-    surname: "",
-    name: "",
-    fName: "",
-    goals: "",
-    tasks: "",
-    objectives: "",
-    disciplinePlace: "",
-    semester: 1,
-    course: "",
-    competencies: [], // Add an empty array for competencies
+    protocol: formValues.protocol || "",
+    date: formValues.date || "",
+    surname: formValues.surname || "",
+    name: formValues.name || "",
+    fName: formValues.fName || "",
+    goals: formValues.goals || "",
+    tasks: formValues.tasks || "",
+    objectives: formValues.objectives || "",
+    disciplinePlace: formValues.disciplinePlace || "",
+    semester: formValues.semester || 1,
+    course: formValues.course || "",
+    competencies: formValues.competencies?.length
+      ? formValues.competencies
+      : [],
+    hours: formValues.hours || "",
+    creditUnits: formValues.creditUnits || "",
+    discSections: [],
+    // sectionsTopics: formValues.sectionsTopics || "",
+    // smthElse: formValues.smthElse || "",
+    supportList: formValues.supportList || "",
+    fundList: formValues.fundList || "",
+    literatureList: formValues.literatureList || "",
+    periodicalsList: formValues.periodicalsList || "",
+    internetResList: formValues.internetResList || "",
+    infoTechResList: formValues.infoTechResList || "",
+    profDataInfList: formValues.profDataInfList || "",
+    reqSoftwareList: formValues.reqSoftwareList || "",
+    TReqLogistics: {
+      lecture: formValues.TReqLogistics?.lecture || "",
+      seminars: formValues.TReqLogistics?.seminars || "",
+      disabled: formValues.TReqLogistics?.disabled || "",
+    },
   };
 
   const [data, setData] = useState(INITIAL_DATA);
@@ -99,9 +155,29 @@ const ConstructPage: React.FC = () => {
       component: CompetencyForm,
       title: "Компетенции",
     },
+    {
+      component: DiscSizeForm,
+      title: "Объем дисциплины",
+    },
+    {
+      component: DiscContentForm,
+      title: "Разделы дисциплины",
+    },
+    {
+      component: EducMethSupportForm,
+      title: "Перечень учебно-методического обеспечения",
+    },
+    {
+      component: EvaluationFundForm,
+      title: "Фонды оценочных средств",
+    },
+    {
+      component: ResourceSupportForm,
+      title: "Ресурсное обеспечение",
+    },
   ];
 
-  function updateFields(fields: Partial<FormData>) {
+  function updateFields(fields: Partial<TFormData>) {
     setData((prev) => {
       return { ...prev, ...fields };
     });

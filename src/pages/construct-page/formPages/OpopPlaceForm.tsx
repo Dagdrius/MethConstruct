@@ -3,14 +3,14 @@ import Typography from "@mui/material/Typography";
 import { TextField, Box, FormControl, Select, MenuItem } from "@mui/material";
 import { FormWrapper } from "./FormWrapper";
 
-type OpopPlaceData = {
+type TOpopPlaceData = {
   disciplinePlace: string;
   semester: string | number;
   course: string | number;
 };
 
-type OpopPlaceFormProps = OpopPlaceData & {
-  updateFields: (fields: Partial<OpopPlaceData>) => void;
+type TOpopPlaceFormProps = TOpopPlaceData & {
+  updateFields: (fields: Partial<TOpopPlaceData>) => void;
 };
 
 export function OpopPlaceForm({
@@ -18,7 +18,7 @@ export function OpopPlaceForm({
   semester,
   course,
   updateFields,
-}: OpopPlaceFormProps) {
+}: TOpopPlaceFormProps) {
   const renderSemesterOptions = () => {
     switch (course) {
       case "1":

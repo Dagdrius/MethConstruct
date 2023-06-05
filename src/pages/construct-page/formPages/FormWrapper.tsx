@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import Typography from "@mui/material/Typography";
 
-type FormWrapperProps = {
+type TFormWrapperProps = {
   title: string;
   children: ReactNode;
 };
-export function FormWrapper({ title, children }: FormWrapperProps) {
+export function FormWrapper({ title, children }: TFormWrapperProps) {
   return (
     <>
       <Typography

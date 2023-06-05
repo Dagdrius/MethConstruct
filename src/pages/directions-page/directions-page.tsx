@@ -13,7 +13,7 @@ import { mockRowData } from "./mockData";
 
 import "./directions-page.css";
 
-type rowData = {
+type TrowData = {
   id: number;
   programm: string;
   code: string;
@@ -22,7 +22,7 @@ type rowData = {
   educDir: string;
 };
 
-type Order = "asc" | "desc";
+type TOrder = "asc" | "desc";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -35,7 +35,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 }
 
 function getComparator<Key extends keyof any>(
-  order: Order,
+  order: TOrder,
   orderBy: Key
 ): (
   a: { [key in Key]: number | string },
@@ -62,14 +62,14 @@ const sortedRowInformation = <T,>(
 };
 
 const Directions: React.FC = () => {
-  const [orderDirection, setOrderDirection] = useState<Order>("asc");
+  const [orderDirection, setOrderDirection] = useState<TOrder>("asc");
   const [orderBy, setOrderBy] = useState("programm");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof rowData
+    property: keyof TrowData
   ) => {
     const isAsc = orderBy === property && orderDirection === "asc";
     setOrderBy(property);
@@ -146,18 +146,6 @@ const Directions: React.FC = () => {
                         Уровень образования
                       </TableSortLabel>
                     </TableCell>
-                    {/* <TableCell key="educDir">
-                      <TableSortLabel
-                        style={{ color: "white" }}
-                        active={orderBy === "educDir"}
-                        direction={
-                          orderBy === "educDir" ? orderDirection : "asc"
-                        }
-                        onClick={(event) => handleRequestSort(event, "educDir")}
-                      >
-                        Направление
-                      </TableSortLabel>
-                    </TableCell> */}
                   </TableRow>
                 </TableHead>
                 {sortedRowInformation(

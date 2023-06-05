@@ -12,21 +12,25 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { mockRowData } from "../pages/directions-page/mockData";
 
-type DialogMenuProps = {
+type TDialogMenuProps = {
   open: boolean;
   onClose: () => void;
   onSubmit: (values: Record<string, string>) => void;
 };
 
-const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
+const DialogMenu: React.FC<TDialogMenuProps> = ({
+  open,
+  onClose,
+  onSubmit,
+}) => {
   const [textFieldValues, setTextFieldValues] = useState<
     Record<string, string>
   >({
-    name: "",
+    rpdName: "",
     direction: "",
-    dirCode: "",
-    educationLevel: "",
-    educationForm: "",
+    code: "",
+    educLvl: "",
+    educForm: "",
   });
 
   const handleTextFieldChange = (name: string, value: string) => {
@@ -57,9 +61,9 @@ const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
           Название рабочей программы
         </Typography>
         <TextField
-          value={textFieldValues.name}
+          value={textFieldValues.rpdName}
           onChange={(event) =>
-            handleTextFieldChange("name", event.target.value)
+            handleTextFieldChange("rpdName", event.target.value)
           }
           fullWidth
         />
@@ -90,10 +94,10 @@ const DialogMenu: React.FC<DialogMenuProps> = ({ open, onClose, onSubmit }) => {
         <FormControl sx={{ width: "100%" }}>
           <Select
             fullWidth
-            id="dirCode"
-            value={textFieldValues.dirCode}
+            id="code"
+            value={textFieldValues.code}
             onChange={(event) => handleSelectorChange(event)}
-            name="dirCode"
+            name="code"
             label="Направление"
           >
             {mockRowData

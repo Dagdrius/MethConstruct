@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { TextField, Box } from "@mui/material";
 import { FormWrapper } from "./FormWrapper";
 
-type AgreementData = {
+type TAgreementData = {
   protocol: string;
   date: string;
   surname: string;
@@ -11,8 +11,8 @@ type AgreementData = {
   fName: string;
 };
 
-type AgreementFormProps = AgreementData & {
-  updateFields: (fields: Partial<AgreementData>) => void;
+type TAgreementFormProps = TAgreementData & {
+  updateFields: (fields: Partial<TAgreementData>) => void;
 };
 
 export function AgreementForm({
@@ -22,7 +22,7 @@ export function AgreementForm({
   name,
   fName,
   updateFields,
-}: AgreementFormProps) {
+}: TAgreementFormProps) {
   return (
     <FormWrapper title="Лист согласования">
       <Box display="flex" flexDirection="column" alignItems="center">

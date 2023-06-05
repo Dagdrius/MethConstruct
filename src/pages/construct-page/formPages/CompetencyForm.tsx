@@ -31,64 +31,12 @@ type TAchievementIndicator = {
   masterys?: string;
 };
 
-// Function to generate the next ID
-
-// const competency: TCompetency = {
-//   id: uuidv4(),
-//   code: "ОПК-1",
-//   name: "Способен инсталлировать программное и аппаратное обеспечение для информационных и автоматизированных систем",
-//   achievementIndicators: [
-//     {
-//       id: uuidv4(),
-//       code: "И(ОПК-1)-1",
-//       wording: "Описание индикатора 1.1",
-//       knowledges: "Описание знания 1.1",
-//       skills: "Описание скилла 1.1",
-//       masterys: "Описание мастери 1.1",
-//     },
-//     {
-//       id: uuidv4(), // Unique id for the second achievement
-//       code: "И(ОПК-1)-2",
-//       wording: "Описание индикатора 1.2",
-//       knowledges: "Описание знания 1.2",
-//       skills: "Описание скилла 1.2",
-//       masterys: "Описание мастери 1.2",
-//     },
-//   ],
-// };
-
-// const competency2: TCompetency = {
-//   id: uuidv4(),
-//   code: "ОПК-2",
-//   name: "Web программирование",
-//   achievementIndicators: [
-//     {
-//       id: uuidv4(),
-//       code: "И(ОПК-2)-1",
-//       wording: "Описание индикатора 2.1",
-//       knowledges: "Описание знания 2.1",
-//       skills: "Описание скилла 2.1",
-//       masterys: "Описание мастери 2.1",
-//     },
-//     {
-//       id: uuidv4(), // Unique id for the second achievement
-//       code: "И(ОПК-2)-2",
-//       wording: "Описание индикатора 2.2",
-//       knowledges: "Описание знания 2.2",
-//       skills: "Описание скилла 2.2",
-//       masterys: "Описание мастери 2.2",
-//     },
-//   ],
-// };
-
-const compArray = [];
-
-type CompetencyData = {
+type TCompetencyData = {
   competencies: TCompetency[];
 };
 
-type CompetencyFormProps = CompetencyData & {
-  updateFields: (fields: Partial<CompetencyData>) => void;
+type TCompetencyFormProps = TCompetencyData & {
+  updateFields: (fields: Partial<TCompetencyData>) => void;
 };
 
 const FIELD_NAMES = {
@@ -102,12 +50,12 @@ const FIELD_NAMES = {
 export function CompetencyForm({
   competencies,
   updateFields,
-}: CompetencyFormProps) {
+}: TCompetencyFormProps) {
   const handleSave = () => {
     updateFields({ competencies: competencyArray });
   };
 
-  const [competencyArray, setCompetenceArray] = useState(compArray);
+  const [competencyArray, setCompetenceArray] = useState(competencies);
   const [expanded, setExpanded] = React.useState<string[]>([]);
   const [selected, setSelected] = React.useState<string>("");
   const [open, setOpen] = React.useState(false);
@@ -217,18 +165,19 @@ export function CompetencyForm({
   };
 
   const handleDeleteCompetency = (id: string) => {
-    setCompetenceArray((preValue) => {
+    setCompetenceArray((preValue: any) => {
       const filteredArray = preValue.filter(
-        (competency) => competency.id !== id
+        (competency: any) => competency.id !== id
       );
       return filteredArray;
     });
   };
 
   const handleEditSave = (competency: TCompetency) => {
-    setCompetenceArray((preValue) => {
-      const targetIndex = preValue.findIndex((el) => el.id === competency.id);
-      console.log(targetIndex);
+    setCompetenceArray((preValue: any) => {
+      const targetIndex = preValue.findIndex(
+        (el: any) => el.id === competency.id
+      );
       if (targetIndex === -1) {
         preValue.push(competency);
       } else {
@@ -241,10 +190,12 @@ export function CompetencyForm({
 
   const handleCompetenceEdit = (id: string) => {
     const targetCompetency = competencyArray.find(
-      (competency) => competency.id === id
+      (competency: any) => competency.id === id
     );
-    setCompetencyFieldValues(targetCompetency);
-    setOpen(true);
+    if (targetCompetency) {
+      setCompetencyFieldValues(targetCompetency);
+      setOpen(true);
+    }
   };
 
   return (
@@ -267,7 +218,7 @@ export function CompetencyForm({
             onNodeSelect={handleSelect}
             onNodeToggle={handleToggle}
           >
-            {competencyArray.map((competency, index) => (
+            {competencyArray.map((competency: any, index: number) => (
               <TreeItem
                 key={index}
                 nodeId={competency.id}
@@ -303,35 +254,37 @@ export function CompetencyForm({
                   </div>
                 }
               >
-                {competency.achievementIndicators.map((achievement, index) => (
-                  <TreeItem
-                    key={achievement.id}
-                    nodeId={achievement.id}
-                    label={achievement.code}
-                  >
-                    {achievement.knowledges && (
-                      <TreeItem
-                        key={achievement.knowledges}
-                        nodeId={achievement.knowledges}
-                        label={achievement.knowledges}
-                      ></TreeItem>
-                    )}
-                    {achievement.skills && (
-                      <TreeItem
-                        key={achievement.skills}
-                        nodeId={achievement.skills}
-                        label={achievement.skills}
-                      ></TreeItem>
-                    )}
-                    {achievement.masterys && (
-                      <TreeItem
-                        key={achievement.masterys}
-                        nodeId={achievement.masterys}
-                        label={achievement.masterys}
-                      ></TreeItem>
-                    )}
-                  </TreeItem>
-                ))}
+                {competency.achievementIndicators.map(
+                  (achievement: any, index: number) => (
+                    <TreeItem
+                      key={achievement.id}
+                      nodeId={achievement.id}
+                      label={achievement.code}
+                    >
+                      {achievement.knowledges && (
+                        <TreeItem
+                          key={achievement.knowledges}
+                          nodeId={achievement.knowledges}
+                          label={achievement.knowledges}
+                        ></TreeItem>
+                      )}
+                      {achievement.skills && (
+                        <TreeItem
+                          key={achievement.skills}
+                          nodeId={achievement.skills}
+                          label={achievement.skills}
+                        ></TreeItem>
+                      )}
+                      {achievement.masterys && (
+                        <TreeItem
+                          key={achievement.masterys}
+                          nodeId={achievement.masterys}
+                          label={achievement.masterys}
+                        ></TreeItem>
+                      )}
+                    </TreeItem>
+                  )
+                )}
               </TreeItem>
             ))}
           </TreeView>
@@ -343,7 +296,6 @@ export function CompetencyForm({
           >
             Добавить новую компетенцию
           </Button>
-          <Button onClick={handleSave}>Save</Button>
         </Box>
       </FormWrapper>
       <Dialog
@@ -383,12 +335,17 @@ export function CompetencyForm({
                   achievementField !== "id" ? (
                     <React.Fragment key={i}>
                       <Typography className="inputTypo" variant="body2">
-                        {FIELD_NAMES[achievementField]}
+                        {
+                          FIELD_NAMES[
+                            achievementField as keyof typeof FIELD_NAMES
+                          ]
+                        }
                       </Typography>
                       <TextField
+                        required
                         value={
                           competencyFieldValues.achievementIndicators[index][
-                            achievementField
+                            achievementField as keyof TAchievementIndicator
                           ]
                         }
                         onChange={(event) =>
@@ -411,7 +368,12 @@ export function CompetencyForm({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleEditSave(competencyFieldValues)}>
+          <Button
+            onClick={() => {
+              handleEditSave(competencyFieldValues);
+              handleSave();
+            }}
+          >
             Save
           </Button>
         </DialogActions>

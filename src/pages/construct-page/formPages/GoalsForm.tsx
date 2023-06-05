@@ -3,14 +3,14 @@ import Typography from "@mui/material/Typography";
 import { TextField, Box } from "@mui/material";
 import { FormWrapper } from "./FormWrapper";
 
-type GoalsData = {
+type TGoalsData = {
   goals: string;
   tasks: string;
   objectives: string;
 };
 
-type GoalsFormProps = GoalsData & {
-  updateFields: (fields: Partial<GoalsData>) => void;
+type TGoalsFormProps = TGoalsData & {
+  updateFields: (fields: Partial<TGoalsData>) => void;
 };
 
 export function GoalsForm({
@@ -18,7 +18,7 @@ export function GoalsForm({
   tasks,
   objectives,
   updateFields,
-}: GoalsFormProps) {
+}: TGoalsFormProps) {
   return (
     <div style={{ width: "95%" }}>
       <FormWrapper title="Цели, задачи и объекты">

@@ -7,25 +7,35 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import EditIcon from "@mui/icons-material/Edit";
+import DialogActions from "@mui/material/DialogActions";
 import TablePagination from "@mui/material/TablePagination";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, IconButton, TableSortLabel } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { mockWorkRowData } from "./mockWorkData";
+import { mockRpd } from "./MockObject";
 // import educData from "./educData.json"
 import DialogMenu from "../../components/DialogMenu";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./workingProgramms-page.css";
 
-type rowData = {
-  id: number;
-  code: string;
+type TrowData = {
+  rpdId: string;
   rpdName: string;
+  code: string;
   educLvl: string;
   authors: string;
 };
 
-type Order = "asc" | "desc";
+type TOrder = "asc" | "desc";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -38,7 +48,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 }
 
 function getComparator<Key extends keyof any>(
-  order: Order,
+  order: TOrder,
   orderBy: Key
 ): (
   a: { [key in Key]: number | string },
@@ -64,15 +74,32 @@ const sortedRowInformation = <T,>(
   return stabilizedRowArray.map((el) => el[0]);
 };
 
+const modifiedMockRpd = mockRpd.map((item) => {
+  const { rpdId, rpdName, code, educLvl, surname, name, fName } = item;
+
+  const authors = `${surname} ${name} ${fName}`;
+
+  return {
+    rpdId,
+    rpdName,
+    code,
+    educLvl,
+    surname,
+    name,
+    fName,
+    authors,
+  };
+});
+
 const WorkingProgramms: React.FC = () => {
-  const [orderDirection, setOrderDirection] = useState<Order>("asc");
+  const [orderDirection, setOrderDirection] = useState<TOrder>("asc");
   const [orderBy, setOrderBy] = useState("programm");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof rowData
+    property: keyof TrowData
   ) => {
     const isAsc = orderBy === property && orderDirection === "asc";
     setOrderBy(property);
@@ -90,22 +117,44 @@ const WorkingProgramms: React.FC = () => {
   };
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [rpdOpen, setRpdOpen] = React.useState(false);
+  const [isRpdBasedOnRpdOpen, setisRpdBasedOnRpdOpen] = useState(false);
+
+  const handleRpdOpenDialog = () => {
+    setRpdOpen(true);
+  };
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
+    setRpdOpen(false);
   };
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
+
+  const handleOpenRpdBasedDialog = () => {
+    setRpdOpen(false);
+    setisRpdBasedOnRpdOpen(true);
+  };
+
   const [formValues, setFormValues] = useState<Record<string, string>>({});
   const navigate = useNavigate();
 
   const handleDialogSubmit = (values: Record<string, string>) => {
-    // Handle the form submission here
-    setFormValues(values); // Add this line to store the form values
-    setIsDialogOpen(false); // Close the dialog after form submission
+    setFormValues(values);
+    setIsDialogOpen(false);
     navigate("/constructor", { state: { formValues: values } });
   };
+
+  const handleRpdEdit = (id: string) => {
+    const targetRpd = mockRpd.find((rpd: any) => rpd.rpdId === id);
+    navigate("/constructor", { state: { formValues: targetRpd } });
+  };
+
+  const [selectedRpdName, setSelectedRpdName] = useState({
+    rpdName: "",
+    rpdId: "",
+  });
 
   return (
     <div className="workingProgramms-page">
@@ -119,6 +168,16 @@ const WorkingProgramms: React.FC = () => {
               <Table>
                 <TableHead style={{ backgroundColor: "#1D51A3" }}>
                   <TableRow>
+                    <TableCell key="rpdId">
+                      <TableSortLabel
+                        style={{ color: "white" }}
+                        active={orderBy === "rpdId"}
+                        direction={orderBy === "rpdId" ? orderDirection : "asc"}
+                        onClick={(event) => handleRequestSort(event, "rpdId")}
+                      >
+                        ID
+                      </TableSortLabel>
+                    </TableCell>
                     <TableCell key="code">
                       <TableSortLabel
                         style={{ color: "white" }}
@@ -165,20 +224,30 @@ const WorkingProgramms: React.FC = () => {
                         Авторы
                       </TableSortLabel>
                     </TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 {sortedRowInformation(
-                  mockWorkRowData,
+                  modifiedMockRpd,
                   getComparator(orderDirection, orderBy)
                 )
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow key={index}>
+                      <TableCell>{row.rpdId}</TableCell>
                       <TableCell>{row.code}</TableCell>
                       <TableCell>{row.rpdName}</TableCell>
                       <TableCell>{row.educLvl}</TableCell>
-                      <TableCell>{row.authors}</TableCell>
-                      {/* <TableCell>{row.educDir}</TableCell> */}
+                      <TableCell>{row.authors} </TableCell>
+                      <TableCell>
+                        <IconButton
+                          onClick={() => {
+                            handleRpdEdit(row.rpdId);
+                          }}
+                        >
+                          <EditIcon fontSize="small" color="primary" />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   ))}
               </Table>
@@ -187,7 +256,7 @@ const WorkingProgramms: React.FC = () => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={mockWorkRowData.length}
+              count={mockRpd.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
@@ -203,7 +272,7 @@ const WorkingProgramms: React.FC = () => {
                 float: "right",
                 marginRight: "20px",
               }}
-              onClick={handleOpenDialog}
+              onClick={handleRpdOpenDialog}
             >
               <AddCircleIcon
                 sx={{ fontSize: "2.5rem" }}
@@ -217,6 +286,68 @@ const WorkingProgramms: React.FC = () => {
             onClose={handleCloseDialog}
             onSubmit={handleDialogSubmit}
           />
+
+          <Dialog
+            open={rpdOpen}
+            onClose={() => setRpdOpen(false)}
+            sx={{ minWidth: "50%" }}
+          >
+            <DialogTitle>
+              Создать новую рабочую программу дисциплины
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleOpenRpdBasedDialog}>
+                На основе другой РПД
+              </Button>
+              <Button onClick={handleOpenDialog}>
+                На основе данных из учебного плана
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Dialog
+            open={isRpdBasedOnRpdOpen}
+            onClose={() => setisRpdBasedOnRpdOpen(false)}
+            sx={{ minWidth: "50%" }}
+          >
+            <DialogTitle>
+              Создать новую рабочую программу дисциплины
+            </DialogTitle>
+            <DialogContent>
+              <FormControl sx={{ width: "100%" }}>
+                <Select
+                  fullWidth
+                  id="chosenRpd"
+                  value={selectedRpdName.rpdName}
+                  onChange={(event) =>
+                    setSelectedRpdName({
+                      rpdId:
+                        modifiedMockRpd.find(
+                          (item) => item.rpdName === event.target.value
+                        )?.rpdId || "",
+                      rpdName: event.target.value,
+                    })
+                  }
+                  name="direction"
+                  label="Направление"
+                >
+                  {modifiedMockRpd.map((item) => (
+                    <MenuItem key={item.rpdId} value={item.rpdName}>
+                      {item.rpdName}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                fullWidth
+                onClick={() => handleRpdEdit(selectedRpdName.rpdId)}
+              >
+                Перейти к конструктору
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       </div>
     </div>

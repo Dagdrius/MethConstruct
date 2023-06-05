@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./auth-page.css";
 
-type inputsForm = {
+type TinputsForm = {
   login: string;
   password: string;
   name: string;
@@ -22,12 +22,12 @@ type inputsForm = {
 const AuthPage: React.FC = () => {
   const navigate = useNavigate();
   const [isReg, setIsReg] = useState(true);
-  const { handleSubmit, control } = useForm<inputsForm>();
+  const { handleSubmit, control } = useForm<TinputsForm>();
   const { errors } = useFormState({
     control,
   });
 
-  const onSubmit: SubmitHandler<inputsForm> = (data) => {
+  const onSubmit: SubmitHandler<TinputsForm> = (data) => {
     console.log(JSON.stringify(data));
     navigate("/directions", { replace: true });
   };
