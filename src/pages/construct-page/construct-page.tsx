@@ -92,6 +92,7 @@ const ConstructPage: React.FC = () => {
   const formValues = location.state?.formValues || {};
 
   const INITIAL_DATA: TFormData = {
+    // Инициализация полей формы
     rpdId: uuid(),
     rpdName: formValues.rpdName,
     direction: formValues.direction,
@@ -116,8 +117,6 @@ const ConstructPage: React.FC = () => {
     hours: formValues.hours || "",
     creditUnits: formValues.creditUnits || "",
     discSections: [],
-    // sectionsTopics: formValues.sectionsTopics || "",
-    // smthElse: formValues.smthElse || "",
     supportList: formValues.supportList || "",
     fundList: formValues.fundList || "",
     literatureList: formValues.literatureList || "",
@@ -133,6 +132,7 @@ const ConstructPage: React.FC = () => {
     },
   };
 
+  const [hours, setHours] = useState("");
   const [data, setData] = useState(INITIAL_DATA);
   const steps = [
     {
@@ -162,15 +162,16 @@ const ConstructPage: React.FC = () => {
     {
       component: DiscContentForm,
       title: "Разделы дисциплины",
+      hours: data.hours,
     },
     {
       component: EducMethSupportForm,
       title: "Перечень учебно-методического обеспечения",
     },
-    {
-      component: EvaluationFundForm,
-      title: "Фонды оценочных средств",
-    },
+    // {
+    //   component: EvaluationFundForm,
+    //   title: "Фонды оценочных средств",
+    // },
     {
       component: ResourceSupportForm,
       title: "Ресурсное обеспечение",
@@ -181,6 +182,9 @@ const ConstructPage: React.FC = () => {
     setData((prev) => {
       return { ...prev, ...fields };
     });
+    if (fields.hours) {
+      setHours(fields.hours);
+    }
   }
 
   const {
@@ -193,7 +197,7 @@ const ConstructPage: React.FC = () => {
     next,
   } = useMultiStepForm(
     steps.map((step) => (
-      <step.component {...data} updateFields={updateFields} />
+      <step.component {...data} updateFields={updateFields} /> // .component - элементы формы, (...data) - нужные данные
     ))
   );
 

@@ -30,7 +30,11 @@ export function DiscSizeForm({
           <TextField
             id="creditUnits"
             value={creditUnits}
-            onChange={(e) => updateFields({ creditUnits: e.target.value })}
+            onChange={(e) => {
+              const value = e.target.value;
+              const hours = (parseInt(value) * 60).toString() || "";
+              updateFields({ creditUnits: value, hours: hours });
+            }}
             style={{ width: "95%" }}
           />
           <Typography
@@ -43,7 +47,7 @@ export function DiscSizeForm({
           <TextField
             id="hours"
             value={hours}
-            onChange={(e) => updateFields({ hours: e.target.value })}
+            disabled
             style={{ width: "95%" }}
           />
         </Box>

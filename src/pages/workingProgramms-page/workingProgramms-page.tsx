@@ -297,7 +297,7 @@ const WorkingProgramms: React.FC = () => {
             </DialogTitle>
             <DialogActions>
               <Button onClick={handleOpenRpdBasedDialog}>
-                На основе другой РПД
+                На основе существующей РПД
               </Button>
               <Button onClick={handleOpenDialog}>
                 На основе данных из учебного плана

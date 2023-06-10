@@ -109,7 +109,7 @@ const Directions: React.FC = () => {
                           handleRequestSort(event, "programm")
                         }
                       >
-                        Программа
+                        Направление
                       </TableSortLabel>
                     </TableCell>
                     <TableCell key="code">

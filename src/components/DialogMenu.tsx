@@ -116,9 +116,9 @@ const DialogMenu: React.FC<TDialogMenuProps> = ({
           <Select
             fullWidth
             id="education-level"
-            value={textFieldValues.educationLevel}
+            value={textFieldValues.educLvl}
             onChange={(event) => handleSelectorChange(event)}
-            name="educationLevel"
+            name="educLvl"
             label="Уровень образования"
           >
             <MenuItem value="Магистратура">Магистратура</MenuItem>
@@ -132,9 +132,9 @@ const DialogMenu: React.FC<TDialogMenuProps> = ({
           <Select
             fullWidth
             id="education-form"
-            value={textFieldValues.educationForm}
+            value={textFieldValues.educForm}
             onChange={(event) => handleSelectorChange(event)}
-            name="educationForm"
+            name="educForm"
             label="Форма обучения"
           >
             <MenuItem value="Очная">Очная</MenuItem>

@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Конструктор РПД
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit"></Button>
         </Toolbar>
       </AppBar>
 
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
               style={{ textDecoration: "none", color: "inherit" }}
               to="/directions"
             >
-              <ListItemButton>
+              <ListItemButton onClick={toggleDrawer}>
                 <ListItemIcon sx={{ minWidth: 0, paddingRight: "8px" }}>
                   <TaskRoundedIcon />
                 </ListItemIcon>
@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
               style={{ textDecoration: "none", color: "inherit" }}
               to="/working-programms"
             >
-              <ListItemButton>
+              <ListItemButton onClick={toggleDrawer}>
                 <ListItemIcon sx={{ minWidth: 0, paddingRight: "8px" }}>
                   <TaskRoundedIcon />
                 </ListItemIcon>
@@ -97,14 +97,7 @@ const Navbar: React.FC = () => {
             <Link
               style={{ textDecoration: "none", color: "inherit" }}
               to="/working-programms"
-            >
-              <ListItemButton>
-                <ListItemIcon sx={{ minWidth: 0, paddingRight: "8px" }}>
-                  <TaskRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Направления" />
-              </ListItemButton>
-            </Link>
+            ></Link>
           </List>
         </Box>
       </Drawer>

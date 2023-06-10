@@ -73,13 +73,21 @@ export function OpopPlaceForm({
           >
             Место дисциплины
           </Typography>
-          <TextField
-            // required
-            id="outlined"
+          <Select
+            disabled
+            style={{ width: "70%" }}
+            id="education-form"
             value={disciplinePlace}
             onChange={(e) => updateFields({ disciplinePlace: e.target.value })}
-            style={{ width: "70%" }}
-          />
+            name="educationForm"
+            label="Форма обучения"
+          >
+            <MenuItem value="Обязательная часть">Обязательная часть</MenuItem>
+            <MenuItem value="Вариативная часть">Вариативная часть</MenuItem>
+            <MenuItem value="Дисциплины по выбору">
+              Дисциплины по выбору
+            </MenuItem>
+          </Select>
 
           <Typography
             variant="body2"
@@ -91,6 +99,7 @@ export function OpopPlaceForm({
 
           <FormControl sx={{ width: "70%" }}>
             <Select
+              disabled
               fullWidth
               id="education-form"
               value={course}
@@ -115,6 +124,7 @@ export function OpopPlaceForm({
 
           <FormControl sx={{ width: "70%" }}>
             <Select
+              disabled
               fullWidth
               id="education-form"
               value={semester}

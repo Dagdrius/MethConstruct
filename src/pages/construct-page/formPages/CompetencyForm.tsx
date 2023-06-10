@@ -15,13 +15,15 @@ import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { v4 as uuidv4 } from "uuid";
+
+//Сами элементы компетенций
 type TCompetency = {
   id: string;
   code: string;
   name: string;
   achievementIndicators: TAchievementIndicator[];
 };
-
+//Индикаторы достижений
 type TAchievementIndicator = {
   id: string;
   code: string;
@@ -30,7 +32,7 @@ type TAchievementIndicator = {
   skills?: string;
   masterys?: string;
 };
-
+// Массив компетенций
 type TCompetencyData = {
   competencies: TCompetency[];
 };
@@ -153,7 +155,7 @@ export function CompetencyForm({
       };
     });
   };
-
+  //Добавление индикаторов
   const addAchievementIndicator = () => {
     setCompetencyFieldValues((prevValues) => ({
       ...prevValues,
@@ -163,7 +165,7 @@ export function CompetencyForm({
       ],
     }));
   };
-
+  //Удаление компетенций
   const handleDeleteCompetency = (id: string) => {
     setCompetenceArray((preValue: any) => {
       const filteredArray = preValue.filter(
@@ -172,7 +174,7 @@ export function CompetencyForm({
       return filteredArray;
     });
   };
-
+  // Добавление новых компетенций
   const handleEditSave = (competency: TCompetency) => {
     setCompetenceArray((preValue: any) => {
       const targetIndex = preValue.findIndex(
@@ -187,7 +189,7 @@ export function CompetencyForm({
     });
     setOpen(false);
   };
-
+  //Редактирование компетенций
   const handleCompetenceEdit = (id: string) => {
     const targetCompetency = competencyArray.find(
       (competency: any) => competency.id === id

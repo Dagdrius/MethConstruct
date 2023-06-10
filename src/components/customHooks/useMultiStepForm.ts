@@ -5,20 +5,20 @@ export function useMultiStepForm(steps: ReactElement[]) {
 
   function next() {
     setCurrentStepIndex((step) => {
-      if (step >= steps.length - 1) return step;
+      if (step >= steps.length - 1) return step; //Переход на следующий этап формы
       return step + 1;
     });
   }
 
   function back() {
-    setCurrentStepIndex((step) => {
-      if (step < 0) return step;
+    setCurrentStepIndex((step) => { 
+      if (step < 0) return step; //Переход на предыдущий этап формы
       return step - 1;
     });
   }
 
   function goToStep(index: number) {
-    setCurrentStepIndex(index);
+    setCurrentStepIndex(index); //Переход на нужный этап формы
   }
 
   return {
